@@ -1,0 +1,187 @@
+---
+title: "Marcos de cambio climático en medios noticiosos el Golfo de California"
+output:
+  html_document:
+    df_print: paged
+---
+
+####Hem Nalini Morzaria-Luna. CEDO Intercultural
+####Gabriela Cruz-Piñón. Departamento de Ciencias Marinas y Costeras. Universidad Autónoma de Baja California Sur.
+####Andrea K. Gerlak. School of Geography and Development. Associate Research Professor
+####Luis E. Calderón-Aguilera. Departamento de Ecología Marina. Centro de Investigación Científica y de Educación Superior de Ensenada
+####Peggy Turk-Boyer. CEDO Intercultural
+
+El marco o presentación de los artículos que describen el cambio climático puede afectar la respuesta a variaciones en condiciones locales y la aceptación de políticas de adaptación. Los medios noticiosos pueden influir en la interpretación que los habitantes de las comunidades costeras, como los pescadores y otros usuarios de recursos, tienen del cambio climático al legitimar perspectivas específicas ideológicas o de política pública, al atribuir responsabilidad, comunicar incertidumbre científica y enfatizar el papel de instituciones locales.
+
+```{r package_setup, message=FALSE, warning=FALSE, include=FALSE}
+install.packages("corpus.JSS.papers", repos = "http://datacube.wu.ac.at/", type = "source")
+
+.packages = c(
+  "RCurl", "XML","rvest", "httr", "tidyverse","data.table","parallel","doSNOW","here", "tidytext", "wordcloud","tm", "reshape2","topicmodels")
+
+
+# Install CRAN packages (if not already installed)
+.inst <- .packages %in% installed.packages()
+if (length(.packages[!.inst]) > 0)
+  install.packages(.packages[!.inst], dependencies = TRUE)
+
+# Load packages into session
+lapply(.packages, require, character.only = TRUE)
+
+```
+
+Nuestro proyecto analiza cómo los medios nacionales, regionales y locales comunican el cambio climático en la región que rodea el Golfo de California. Nos enfocamos en medios que solo tienen presencia electrónica y en medios que tienen versión electrónica e impresa. 
+
+```{r load_data, echo=FALSE, message=FALSE, warning=FALSE}
+data_path <- here()
+
+setwd(data_path)
+
+html.list <- fread("list_links.csv", sep=",", header=TRUE, encoding = "Latin-1") %>% tbl_df()
+
+source.list <- fread("list_sources.csv", sep=",", header=TRUE) %>% tbl_df()
+
+sent.lexicon.1 <- fread("SEL_full.txt", encoding = "Latin-1") %>% 
+  dplyr::rename(word = Palabra, category = Categoria)
+
+sent.lexicon.temp <- fread("negative_words_es.txt", header= TRUE, encoding = "UTF-8") %>% 
+  tbl_df %>% 
+  mutate(category="negative")
+
+sent.lexicon.2 <- fread("positive_words_es.txt", header= TRUE, encoding = "UTF-8")%>% 
+  tbl_df %>% 
+  mutate(category="positive") %>% 
+  bind_rows(sent.lexicon.temp)
+
+spanish.words <- stopwords("spanish") %>% 
+  tbl_df %>% 
+  setNames("word")
+
+stop.words <- fread("stopwords_spanish.txt", header= TRUE, encoding = "Latin-1") %>% 
+  bind_rows(spanish.words) %>% 
+  distinct(word)
+```
+
+Desarrollamos una base de datos con todos los artículos publicados por fuentes noticiosas en los estados de Sonora, Sinaloa, Nayarit, Jalisco, Baja California, y Baja California Sur entre 01/01/2016 and 12/31/2017 y que están archivados en línea, así como fuentes noticiosas nacionales. Extrajimos artículos basados en las palabras claves "cambio climático"", "acidificación del océano”, “Acuerdo de París” (Paris accord), y "protocolo de Kyoto" (Kyoto protocol) 
+
+
+```{r}
+print(head(html.list))
+```
+
+```{r get_words, message=FALSE, warning=FALSE, include=FALSE}
+link.text <- html.list %>% 
+  filter(NOMBRE_DEL_PERIODICO %in% c("EL MURAL","REFORMA","LA SILLA ROTA","DIARIO DE ACAYUCÁN","EXPRESO")) %>% 
+  mutate(article_num = 1:nrow(.))
+
+article.num <- 1:nrow(link.text)
+
+get_words <- function(eacharticle){
+  
+  print(eacharticle)
+  print(link.text[eacharticle,])
+  
+  link.text.sent2 <- link.text[eacharticle,] %>% 
+    tbl_df %>% 
+    unnest_tokens(word, ARTICULO) %>% 
+    left_join(sent.lexicon.2, by="word") %>% 
+    filter(!is.na(category))
+}
+
+word.list <- lapply(article.num, get_words)
+
+word.tbl <- word.list %>% 
+  bind_rows %>% 
+  anti_join(stop.words, by = "word") %>% 
+  mutate(category = if_else(category=="negative","negativo","positivo"))
+```
+
+Este es un análisis preliminar con ~1700 artículos de una muestra de 5 fuentes noticiosas locales, regionales, y nacionales, aplicado a artículos publicados entre 2016-2017. En el análisis final incluiremos un número mayor de fuentes noticiosas y más años.
+Inicialmente separamos cada artículo en las palabras que los componen, después eliminamos las conjunciones y las palabras comunes. Inicialmente analizamos la frecuencia de palabras en el conjunto de artículos.
+
+
+```{r word_floud_freq, echo=FALSE, message=FALSE, warning=FALSE}
+word.tbl %>% 
+  group_by(word, category) %>% 
+  dplyr::summarise(n_cat = n()) %>% 
+  with(wordcloud(word,n_cat,max.words=50)) 
+
+```
+
+En esta nube de palabras, mayor tamaño indica que la palabra es más frecuente.
+
+###Análisis de sentimiento
+
+Despues, realizamos un analisis de sentimiento, que es el proceso que determina el tono emocional que hay detrás de palabras determinadas, si en general el articulo contiene una opinión positiva o negativa sobre el tema
+
+```{r}
+print(head(word.tbl))
+```
+
+
+```{r sentiment_analysis, echo=FALSE, message=FALSE, warning=FALSE}
+#graphs
+
+word.tbl %>% 
+  group_by(article_num, category) %>% 
+  dplyr::summarise(n_cat = n()) %>% 
+  # count(word, category, sort = TRUE) %>% 
+  ggplot(aes(category,n_cat, fill = category))+
+  geom_boxplot(show.legend = FALSE)+
+  ggtitle("Análisis de sentimiento") +
+  xlab("Categoría") + 
+  ylab("No articulos")
+
+```
+
+Esta gráfica muestra la frecuencia de palabras asignadas como positivas y negativas.
+
+```{r word_cloud_comparison, echo=FALSE, message=FALSE, warning=FALSE}
+word.tbl %>% 
+  group_by(word, category) %>% 
+  dplyr::summarise(n_cat = n()) %>% 
+  acast(word ~ category, value.var = "n_cat", fill = 0) %>% 
+  comparison.cloud(colors = c("blue","red"),
+                   max.words = 100)
+```
+
+Nube de sentimientos, indica las palabras más comunes con connotación negativa y positiva en el conjunto de fuentes noticiosas.
+
+###Modelaje de temas
+
+Finalmente aplicamos un análisis de modelaje de temas o tópicos al cuerpo del texto. Utilizamos aprendizaje de máquinas no supervisado, en una técnica llamada Asignación Latente de Dirichlet, donde nos basamos en la co-ocurrencia de palabras y no proveemos nada de información respecto a cómo se deben de clasificar los artículos ni ninguna interpretación para identificar los conjuntos de palabras que pueden ser interpretados como marcos. 
+
+```{r topic_model, message=FALSE, warning=FALSE, include=FALSE}
+term.matrix <- word.tbl %>% 
+  group_by(article_num, word) %>% 
+  dplyr::summarise(n_cat = n()) %>% 
+  cast_dtm(article_num,word,n_cat)
+
+climate.lda <- LDA(term.matrix, k=4, control = list(seed=1234))
+
+climate.topics <- tidy(climate.lda, matrix = "beta")
+
+climate.top.terms <- climate.topics %>% 
+  group_by(topic) %>% 
+  top_n(15,beta) %>% 
+  ungroup() %>% 
+  arrange(topic, -beta)
+
+```
+
+
+```{r}
+climate.top.terms %>% 
+  mutate(term=reorder(term, beta)) %>% 
+  ggplot(aes(term,beta, fill = factor(topic)))+
+  geom_col(show.legend = FALSE)+
+  facet_wrap(~ topic, scales = "free")+
+  coord_flip()+
+  ggtitle("Palabras comunes por tema") +
+  xlab("Palabras") + 
+  ylab("Beta")+ 
+  labs(fill = "Tema")
+```
+
+Esta visualización nos permite entender que se extrajeron tres temas del artículo y las palabras más comunes por tema. Aquí podemos ver que las palabras dominantes son en uno energía, solar, y en otro acuerdo, contaminación, verde, protección.
+Estos marcos serán validados para determinar el carácter de los temas por ejemplo el tema 1, podría llamarse Política y acuerdos, el 2 Participación ciudadana, 3 Riesgo ambiental, y el 4 Produccion de energia.

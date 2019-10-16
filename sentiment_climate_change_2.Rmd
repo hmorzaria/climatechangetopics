@@ -1,0 +1,217 @@
+---
+title: "Marcos de cambio climático en medios noticiosos el Golfo de California"
+output:
+  html_document:
+    df_print: paged
+---
+
+####Hem Nalini Morzaria-Luna. CEDO Intercultural
+####Gabriela Cruz-Piñón. Departamento de Ciencias Marinas y Costeras. Universidad Autónoma de Baja California Sur.
+####Andrea K. Gerlak. School of Geography and Development. Associate Research Professor
+####Luis E. Calderón-Aguilera. Departamento de Ecología Marina. Centro de Investigación Científica y de Educación Superior de Ensenada
+####Peggy Turk-Boyer. CEDO Intercultural
+
+Climate change impacts on coastal communities in Northwest Mexico require the implementation of adaptation strategies. Artisanal fisheries play a key social and economic role in these communities. Fisher understanding and acceptance of climate change information and perceptions of environmental change will shape and influence policy implementation; fisher’s experiences can also help inform new policy adoption. 
+We assess how national, regional and local news media interprets and communicates climate change messages in the region bordering the Gulf of California, Mexico. Here, printed and online news are an important source of information, and the climate change frames they present reach artisanal fishers in the region. This project is aimed at increasing scientific capacity to respond to climate change impacts in the Northern Gulf of California and serves as a proof-of-concept for subsequent analyses in other coastal areas of the Mexican Pacific.
+
+Our results can be used to aid in the implementation of adaptation strategies to climate change impacts and inform resource management efforts that consider climate change within their goals. 
+
+
+```{r sourcefiles, message=FALSE, warning=FALSE, include=FALSE}
+
+source("libraries.R")
+source("Sentiment_analysis_functions.R")
+source("cognitive_services_functions.R")
+
+```
+
+We developed a database of news articles published by local and regional newspapers in the states that border the Gulf of California, Sonora, Sinaloa, Nayarit, Jalisco, Baja California, and Baja California Sur between 01/01/2016 and 12/31/2016 archived online. 
+We found 2,645 articles that were used to pupulate the database.
+
+```{r get texts, message=FALSE, warning=FALSE, include=FALSE}
+
+html.list <- fread("list_links.csv", sep=",", header=TRUE, encoding = "Latin-1") %>% tbl_df()
+
+text.list <- html.list %>% 
+  filter(!is.na(ARTICULO)) %>% 
+  dplyr::select(ARTICULO) %>% 
+  rename(text=ARTICULO)
+
+link.list <- html.list %>% 
+  filter(is.na(ARTICULO)) %>% 
+  pull(LINK_NOTA)
+
+source.list <- fread("list_sources.csv", sep=",", header=TRUE) %>% tbl_df()
+
+
+#use this to scrape articles for 2016 from websites
+#html.texts <- lapply(link.list, get_articles)
+
+#html.texts %>% 
+#  bind_rows %>% 
+#  write_csv("html_text.csv")
+
+```
+
+
+```{r load_data, echo=FALSE, message=FALSE, warning=FALSE}
+
+#this is the result of scraping data
+article.texts <- clean_html(file="html_text.csv", random = "random_words.csv",additional = text.list)
+ 
+
+print(head(article.texts))
+
+  
+```
+
+We processed articles to separate sentences and applied Microsoft's Cognitive Services using Azure Sentiment Analysis API to do sentiment analysis by sentences. This model uses a combination of techniques during text analysis. Techniques include text processing, part-of-speech analysis, word placement, and word associations
+
+```{r}
+
+article.num <- 1:nrow(article.texts)
+
+sentence.list <- lapply(article.num, get_sentences, article.texts)
+
+sentence.tbl <- sentence.list %>% 
+  bind_rows 
+
+sentence.length <- 1:nrow(sentence.tbl)
+
+ #language codes are https://docs.microsoft.com/en-us/azure/cognitive-services/translator/language-support
+ 
+# Create the empty environment to store the key
+envCogServices <- new.env(parent = emptyenv())
+
+
+cogAuth("bb4ac84fcd9e4b909577882b6eb0b545")
+
+sentimen.scores <- lapply(sentence.length,fnCogServicesBatch,phrase.language = "es", endpoint = "sentiment", region = "southcentralus", sentence.tbl)
+
+sentiment.scores <- sentimen.scores
+
+sentiment.scores %>% bind_cols(sentence.tbl)
+
+write_csv(text.inputs,"sentence_sentiment.csv")
+  
+```
+
+We first ‘tokenized’ each article, extracting all words per article. We found 38,106 unique words. We then filtered out the stopwords, which are commonly used words (such as “the”), that are not usually considered in natural language processing. We derived the list of stopwords in Spanish from two existing lists that we combined, extracted unique words, and checked for accuracy before filtering the database. The list of words without stopwords had 579,121 tokens. 
+
+
+```{r get_words, message=FALSE, warning=FALSE, include=FALSE}
+
+spanish.stop.words <- stopwords("spanish") %>% 
+  tbl_df %>% 
+  setNames("word")
+
+stop.words <- fread("stopwords_spanish.txt", header= TRUE, encoding = "Latin-1") %>% 
+  bind_rows(spanish.stop.words) %>% 
+  distinct(word)
+
+article.num <- 1:nrow(article.texts)
+
+word.list <- lapply(article.num, get_words, article.texts)
+
+word.tbl <- word.list %>% 
+  bind_rows %>% 
+  anti_join(stop.words, by = "word")
+
+```
+
+
+This word cloud shows the word frequency.
+
+```{r word_floud_freq, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+
+word.cloud <- word.tbl %>% 
+  group_by(word) %>% 
+  dplyr::summarise(n_cat = n()) %>% 
+  with(wordcloud(word,n_cat,max.words=75)) 
+
+word.cloud
+
+```
+
+###Sentiment Analysis
+
+Initially, we carried out a sentiment analysis, which determines the attitude of the writer by categorizing text as positive or negative (Barkemeyer et al. 2015). We classified words as negative or positive based on five existing lexicons. The combined sentiment lexicon was revised for duplicate terms, conflicting sentiments (words assigned to both categories), and accuracy before applying. The resulting sentiment lexicon had 14,862 terms.
+We could assign sentiment to 180,255 tokens.
+
+```{r getwords, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+
+#this all the combined lexicons and was reviewed manually   
+
+sent.lexicon <- read_csv("spanish_lexicon.csv") %>% 
+  mutate(word=tolower(word)) %>% 
+  distinct(word,category) %>% 
+  arrange(category,word) 
+
+sentiment.tokens <- get_sentiment(word.tbl,sent.lexicon)
+
+```
+
+```{r sentiment_analysis, echo=FALSE, message=FALSE, warning=FALSE}
+#graphs
+
+sentiment.tokens %>% 
+  group_by(article_index, category) %>% 
+  dplyr::summarise(n_cat = n()) %>% 
+  # count(word, category, sort = TRUE) %>% 
+  ggplot(aes(category,n_cat, fill = category))+
+  geom_boxplot(show.legend = FALSE)+
+  ggtitle("Sentiment analysis") +
+  xlab("Category") + 
+  ylab("No. words")
+
+```
+
+This is the result of the sentiment analysis, showing the number of positive vs negative words per article.
+
+```{r word_cloud_comparison, echo=FALSE, message=FALSE, warning=FALSE}
+sentiment.tokens %>% 
+  group_by(word, category) %>% 
+  dplyr::summarise(n_cat = n()) %>% 
+  acast(word ~ category, value.var = "n_cat", fill = 0) %>% 
+  comparison.cloud(colors = c("blue","red"),
+                   max.words = 100)
+```
+
+
+###Topic Modelling
+
+We applied topic modeling, which identifies ‘topics’ or ‘themes’ in the body of the text. We use unsupervised machine learning, where we provide no input on how the articles should be classified or apply set pre-interpretations to identify word clusters that can be interpreted as frames, but rather rely on word co-occurrence. We then validate the models internally by examining different combinations of topics and selecting those that link climate change to a coherent set of other concepts. Finally, we will validate the models externally by reviewing that they represent frames that are consistent and/or have been previously identified in the climate change literature. Once the test models are validated, we will use the model to classify a sample of articles published between 2018-2019, and develop the corresponding models of topic frames. 
+
+
+```{r topic_model, message=FALSE, warning=FALSE, include=FALSE}
+
+topic.list.a <- get_topic(word.tbl,no_topics=5,top_topics=15)
+
+topic.list.b <- get_topic(word.tbl,no_topics=6,top_topics=15)
+
+topic.list.c <- get_topic(word.tbl,no_topics=8,top_topics=15)
+
+topic.list.d <- get_topic(word.tbl,no_topics=10,top_topics=15)
+
+topic.list.e <- get_topic(word.tbl,no_topics=12,top_topics=15)
+
+
+```
+
+
+```{r}
+
+climate.top.terms <- topic.list.a$lda_terms
+
+climate.top.terms %>% 
+  mutate(term=reorder(term, beta)) %>% 
+  ggplot(aes(term,beta, fill = factor(topic)))+
+  geom_col(show.legend = FALSE)+
+  facet_wrap(~ topic, scales = "free")+
+  coord_flip()+
+  ggtitle("Common words by theme") +
+  xlab("Words") + 
+  ylab("Beta")+ 
+  labs(fill = "Theme")
+```
+

@@ -1,0 +1,187 @@
+INDEX,NOMBRE_DEL_PERIODICO,LINK_DEL_PERIODICO,ESTADO,EDICION_IMPRESA,ENCODING,SELECTOR,COMENTARIO,ACTIVO
+1,EL MEXICANO,http://www.el-mexicano.com.mx/inicio.htm/,BAJA CALIFORNIA,1,utf-8,.post__content,NA,1
+2,FRONTERA.INFO,http://www.frontera.info/,BAJA CALIFORNIA,1,utf-8,p,NA,1
+3,EL SOL DE TIJUANA,https://www.elsoldetijuana.com.mx/,BAJA CALIFORNIA,1,utf-8,p,NA,1
+4,LA VOZ DE LA FRONTERA,https://www.lavozdelafrontera.com.mx/,BAJA CALIFORNIA,1,utf-8,p,NA,1
+5,MONITOR ECONOMICO,http://monitoreconomico.org/noticias/,BAJA CALIFORNIA,0,utf-8,.text-justify,NA,1
+6,EL VIGIA NET,http://www.elvigia.net/,BAJA CALIFORNIA,1,utf-8,#cuerpo-nota,NA,1
+7,ENLACE INFORMATIVO,http://www.enlaceinformativo.net/,BAJA CALIFORNIA,0,utf-8,.entry-content,NA,1
+8,AGENCIA FRONTERIZA DE NOTICIAS,http://www.afntijuana.info/,BAJA CALIFORNIA,0,utf-8,#nota-texto,NA,1
+9,MONITOR BC,http://www.monitorbc.info/,BAJA CALIFORNIA,0,utf-8,#bloIz,NA,1
+10,TIJUANA PRESS,https://tijuanapress.com/,BAJA CALIFORNIA,0,utf-8,p,NA,1
+11,ZETA,http://zetatijuana.com/,BAJA CALIFORNIA,1,utf-8,.nota,NA,1
+12,EL SUDCALIFORNIANO,https://www.elsudcaliforniano.com.mx/,BAJA CALIFORNIA SUR,1,utf-8,p,NA,1
+13,DIARIO EL INDEPENDIENTE,http://diarioelindependiente.mx/,BAJA CALIFORNIA SUR,1,utf-8,.marginTop10,NO SE PUEDE COPIAR,1
+14,TRIBUNA DE LOS CABOS,http://www.tribunadeloscabos.com.mx/,BAJA CALIFORNIA SUR,1,utf-8,.selectionShareable,NA,1
+15,BCS NOTICIAS,http://www.bcsnoticias.mx/,BAJA CALIFORNIA SUR,0,utf-8,p,NA,1
+16,EL PENINSULAR,http://peninsulardigital.com/,BAJA CALIFORNIA SUR,1,utf-8,.entry-content,NA,1
+17,MILED BAJA CALIFORNIA SUR,http://miledbcs.com.mx/bcs/,BAJA CALIFORNIA SUR,1,utf-8,.post-content-wrap,SIN RESULTADOS,1
+18,TRIBUNA,http://tribunacampeche.com/,CAMPECHE,1,utf-8,p,NA,1
+19,NOVEDADES CAMPECHE,https://www.novedadescampeche.com.mx/,CAMPECHE,1,utf-8,p,NA,1
+20,EL SUR DE CAMPECHE,http://www.elsur.mx/,CAMPECHE,0,utf-8,p,NA,1
+21,CR?NICA DE CAMPECHE,http://www.cronicacampeche.com/,CAMPECHE,1,utf-8,p,NA,1
+22,EXPRESO DE CAMPECHE,http://expresocampeche.com/,CAMPECHE,1,utf-8,#single-note-content,NA,1
+23,CAMPECHE HOY,http://campechehoy.mx/,CAMPECHE,1,utf-8,p,NA,1
+24,PUNTO MEDIO,https://www.puntomedio.mx/,CAMPECHE,1,cp1252,.post-entry,NA,1
+25,EL INFORMADOR,http://www.informador.com.mx/,JALISCO,1,utf-8,p,NA,1
+26,EL MURAL,http://www.mural.com/,JALISCO,1,utf-8,p,NA,1
+27,EL OCCIDENTAL,https://www.eloccidental.com.mx/,JALISCO,1,utf-8,p,NA,1
+28,CRONICA JALISCO,http://www.cronicajalisco.com/noticias.php/,JALISCO,1,utf-8,p,NA,1
+29,PAGINA 24 JALISCO,http://pagina24jalisco.com.mx/,JALISCO,1,utf-8,p,NA,1
+30,EL DIARIO NTR,http://www.ntrguadalajara.com/,JALISCO,1,utf-8,.cuerpoImg,NA,1
+31,VALLARTA OPINA,http://vallartaopina.net/,JALISCO,1,utf-8,p,NA,1
+32,SIEMPRE LIBRES,http://www.siemprelibres.com/,JALISCO,1,utf-8,.info,SIN RESULTADOS,1
+33,TRIBUNA DE LA BAHIA,http://www.tribunadelabahia.com.mx/,JALISCO,1,utf-8,.selectionShareable,NA,1
+34,EL FARO,http://www.elfaromx.com/,JALISCO,0,utf-8,#TPAMultiSection_jtj0qre2iframe,SIN RESULTADOS,1
+35,NOTIARANDAS,http://www.notiarandas.com/,JALISCO,1,utf-8,p,NA,1
+36,EL SUR,http://www.periodicoelsur.com/,JALISCO,1,cp1252,#ContenidoLabel,NA,1
+37,ANTENA NOTICIAS,http://www.antenanoticias.com.mx/,JALISCO,0,utf-8,.entry-content,NA,1
+38,LA VOZ DEL NORTE,http://www.vozdelnorte.com/,JALISCO,1,utf-8,.itemFullText,NA,1
+39,MILDED JALISCO,http://miledjalisco.com.mx/jalisco/,JALISCO,1,utf-8,#main-content,SIN RESULTADOS,1
+40,REFORMA,http://www.reforma.com/,NACIONAL,1,utf-8,p,NA,1
+41,LA PRENSA,https://www.la-prensa.com.mx/,NACIONAL,1,utf-8,p,NA,1
+42,EL UNIVERSAL,http://www.eluniversal.com.mx/,NACIONAL,1,utf-8,p,"XML field ""field field-name-body field-type-text-with-summary field-label-hidden""",1
+43,EL GRAFICO,http://www.elgrafico.mx/,NACIONAL,0,utf-8,p,NA,1
+44,CAPITAL MEXICO,http://www.capitalmexico.com.mx/,NACIONAL,1,utf-8,p,NA,1
+45,LA JORNADA,http://www.jornada.unam.mx/ultimas/,NACIONAL,1,utf-8,#content_nitf,NA,1
+46,MILENIO,http://www.milenio.com/,NACIONAL,1,utf-8,p,NA,1
+47,CRONICA,http://www.cronica.com.mx/noticias.php/,NACIONAL,1,utf-8,.cambiodeltexto,NA,1
+48,LA RAZON,http://www.razon.com.mx/,NACIONAL,1,utf-8,p,NA,1
+49,IMPACTO,http://impacto.mx/,NACIONAL,1,utf-8,p,NA,1
+50,EL SOL DE MEXICO,https://www.elsoldemexico.com.mx/,NACIONAL,1,utf-8,p,NA,1
+51,DINERO EN IMAGEN,http://www.dineroenimagen.com/,NACIONAL,1,utf-8,#node-body,NA,1
+52,EXCELSIOR,http://www.excelsior.com.mx/,NACIONAL,1,utf-8,#node-article-body,NA,1
+53,DIARIO DE MEXICO,https://www.diariodemexico.com/index.php/,NACIONAL,1,utf-8,p,NA,1
+54,DIARIO BASTA,http://www.diariobasta.com/,NACIONAL,1,utf-8,p,SIN RESULTADOS,1
+55,EL PUNTO CRITICO,http://www.elpuntocritico.com/,NACIONAL,1,utf-8,.itemBody,NA,1
+56,PERIODICO EL DIA,http://periodicoeldia.mx/,NACIONAL,1,utf-8,.td-post-text-content,NA,1
+57,MILED MEXICO,http://miled.com/,NACIONAL,1,utf-8,#main-content,SIN RESULTADOS,1
+58,MAS POR MAS,https://www.maspormas.com/,NACIONAL,1,utf-8,p,NA,1
+59,PUBLIMETRO,https://www.publimetro.com.mx/mx/,NACIONAL,1,utf-8,p,NA,1
+60,24 HORAS,http://www.24-horas.mx/,NACIONAL,1,utf-8,p,NA,1
+61,RECORD,http://www.record.com.mx/,NACIONAL,1,utf-8,p,NA,1
+62,ESTO,http://www.esto.com.mx/,NACIONAL,1,utf-8,p,NA,1
+63,OVACIONES,http://ovaciones.com/,NACIONAL,1,utf-8,p,NA,1
+64,ESTADIO,http://www.estadiodeportes.mx/,NACIONAL,0,utf-8,p,LOS RESULTADOS NO TIENEN QUE VER CON LOS TEMAS,1
+65,EL FINANCIERO,http://www.elfinanciero.com.mx/,NACIONAL,1,utf-8,.paragraph,NA,1
+66,EL ECONOMISTA,http://eleconomista.com.mx/index.php/,NACIONAL,1,utf-8,p,NA,1
+67,20 MINUTOS,http://www.20minutos.com.mx/,NACIONAL,1,utf-8,p,NA,1
+68,ANIMAL POLITICO,http://www.animalpolitico.com/,NACIONAL,0,utf-8,p,NA,1
+69,ARISTEGUI NOTICIAS,http://aristeguinoticias.com/,NACIONAL,0,utf-8,p,NA,1
+70,E-CONSULTA,http://www.e-consulta.com/,NACIONAL,0,utf-8,.note-body,NA,1
+71,ARSENAL,http://www.elarsenal.net/,NACIONAL,0,utf-8,p,NA,1
+72,EL PERIODICO DE MEXICO,http://elperiodicodemexico.com/,NACIONAL,0,utf-8,p,NA,1
+73,HUELLAS,http://huellas.mx/,NACIONAL,1,utf-8,p,NA,1
+74,LA POLITICA ONLINE,http://www.lapoliticaonline.com.mx/,NACIONAL,0,utf-8,p,NA,1
+75,LA SILLA ROTA,http://lasillarota.com/,NACIONAL,0,utf-8,.paragraph,DERECHOS RESERVADOS,1
+76,MUNDO DE HOY,http://www.mundodehoy.com/,NACIONAL,0,utf-8,span,NA,1
+77,SDPNOTICIAS,https://www.sdpnoticias.com/,NACIONAL,0,utf-8,p,NA,1
+78,SIN EMBARGO,http://www.sinembargo.mx/,NACIONAL,0,utf-8,.post-content,NA,1
+79,MERIDIANO,http://www.nnc.mx/nayarit.html/,NAYARIT,1,latin_1,.col-md-8,NA,1
+80,PERIODICO EXPRESS,http://periodicoexpress.com.mx/,NAYARIT,1,utf-8,.agnes-full-entry,NA,1
+81,EL SOL DE NAYARIT,http://www.elsoldenayarit.mx/,NAYARIT,0,utf-8,p,NA,1
+82,EL IMPARCIAL DE NAYARIT,http://www.elimparcialdenayarit.com/,NAYARIT,0,utf-8,p,NA,1
+83,EL TIEMPO DE NAYARIT,http://www.eltiempodenayarit.mx/,NAYARIT,0,utf-8,td,NA,1
+84,DEBATE,https://www.debate.com.mx/,SINALOA,1,utf-8,.newsfull__body,NA,1
+85,NOROESTE,http://www.noroeste.com.mx/,SINALOA,1,utf-8,p,NA,1
+86,EL SOL DE SINALOA,https://www.elsoldesinaloa.com.mx/,SINALOA,1,utf-8,p,NA,1
+87,VIVAVOZ,http://www.vivavoz.com.mx/,SINALOA,1,utf-8,.itemFullText,NA,1
+88,EL SOL DE MAZATLAN,https://www.elsoldemazatlan.com.mx/,SINALOA,1,utf-8,.content-continued-body,NA,1
+89,MILED SINALOA,http://miledsinaloa.com.mx/sinaloa/,SINALOA,1,utf-8,p,SIN RESULTADOS,1
+90,EL IMPARCIAL,http://www.elimparcial.com/,SONORA,1,utf-8,p,NA,1
+91,ENTORNO INFORMATIVO,http://www.entornoinformativo.com.mx/,SONORA,0,utf-8,.description,SIN RESULTADOS,1
+92,EXPRESO,http://www.expreso.com.mx/,SONORA,1,utf-8,#sp-component,NA,1
+93,EL SOL DE HERMOSILLO,https://www.elsoldehermosillo.com.mx/,SONORA,1,utf-8,p,NA,1
+94,TRIBUNA,http://www.tribuna.com.mx/,SONORA,1,utf-8,p,NA,1
+95,EL DIARIO DEL YAQUI,http://diariodelyaqui.mx/,SONORA,1,utf-8,p,SIN RESULTADOS,1
+96,EL REGIONAL,http://www.elregionaldesonora.com.mx/,SONORA,1,utf-8,.entry,LOS RESULTADOS NO TIENEN QUE VER CON LOS TEMAS,1
+97,EL DIARIO DE SONORA,www.eldiariodesonora.com.mx/,SONORA,1,utf-8,p,NA,1
+98,NUEVO DIA NOGALES,http://nuevodia.com.mx/,SONORA,1,utf-8,font,NA,1
+99,TRIBUNA DE SAN LUIS,https://www.tribunadesanluis.com.mx/,SONORA,1,utf-8,p,NA,1
+100,NOTICIAS,http://www.diarionoticias.info/,SONORA,1,utf-8,p,NA,1
+101,LA VERDAD,http://www.diariolaverdad.mx/,SONORA,1,utf-8,p,NA,1
+102,CABORCA NOTICIAS,http://www.caborcanoticias.com/noticias/,SONORA,0,utf-8,p,NA,1
+103,REVISTA PROYEXION GUAYMAS,http://proyexion-online.blogspot.mx/,SONORA,0,utf-8,.post-body,SIN RESULTADOS,1
+104,CRITICA,http://www.critica.com.mx/,SONORA,0,utf-8,p,SIN RESULTADOS,1
+105,DOSSIER POLITICO,http://www.dossierpolitico.com/,SONORA,1,utf-8,.shortcode-content,NA,1
+106,TELEMAX,http://www.telemax.com.mx/,SONORA,0,utf-8,p,NA,1
+107,EL OBSERVADOR MEXICO,https://elobservadormexico.com/,SONORA,0,utf-8,p,LOS RESULTADOS NO TIENEN QUE VER CON LOS TEMAS,1
+108,NUMERO UNO,http://www.numerounoonline.com/new/,SONORA,0,utf-8,#t3-content,NA,1
+109,MILED SONORA,http://miledsonora.com.mx/sonora/,SONORA,1,utf-8,#main-content,SIN RESULTADOS,1
+110,TABASCO HOY,http://www.tabascohoy.com/,TABASCO,1,utf-8,span,NA,1
+111,PRESENTE,https://www.diariopresente.mx/,TABASCO,1,utf-8,font,NA,1
+112,NOVEDADES DE TABASCO,http://novedadesdetabasco.com.mx/,TABASCO,1,utf-8,.entry-body,NA,1
+113,RUMBO NUEVO,https://www.rumbonuevo.com.mx/,TABASCO,1,utf-8,p,NA,1
+114,ABC DE LA TARDE,http://www.abcdelatarde.com/sitio/,TABASCO,0,utf-8,#s5_bodygradientnoin,NA,1
+115,EL HERALDO DE TABASCO,https://www.elheraldodetabasco.com.mx/,TABASCO,1,utf-8,p,NA,1
+116,LA VERDAD DEL SURESTE,http://www.la-verdad.com.mx/,TABASCO,1,cp1252,.col-md-8,NA,1
+117,DIARIO OLMECA,http://encambiotabasco.com/,TABASCO,0,utf-8,.td-post-content,NA,1
+118,AVANCE,http://diarioavancetabasco.com/,TABASCO,1,utf-8,p,NA,1
+119,AHORA TABASCO,https://ahoratabasco.com/,TABASCO,1,utf-8,#gkMainbody,NA,1
+120,LA VOZ DE TABASCO,http://www.lavozdetabasco.com.mx/,TABASCO,1,utf-8,#main,NA,1
+121,DIARIO DE TABASCO,http://www.diariodetabasco.mx/,TABASCO,1,utf-8,p,NA,1
+122,PM DIARIO,https://pmdiario.com/,TABASCO,0,utf-8,p,NA,1
+123,EL MA?ANA,https://www.elmanana.com/,TAMAULIPAS,1,utf-8,.large-8,NA,1
+124,LA TARDE,https://www.latarde.com.mx/,TAMAULIPAS,1,utf-8,p,NA,1
+125,LA PRENSA,http://www.laprensa.mx/,TAMAULIPAS,1,utf-8,#texto,NA,1
+126,VALLE DEL NORTE,http://valledelnorte.com.mx/sitio/,TAMAULIPAS,0,utf-8,p,SIN RESULTADOS,1
+127,METR?POLI,https://grupometropoli.net/,TAMAULIPAS,0,utf-8,p,NA,1
+128,EL BRAVO,http://www.elbravo.mx/,TAMAULIPAS,1,utf-8,p,NA,1
+129,EL IMPARCIAL,http://www.imparcialmatamoros.com.mx/,TAMAULIPAS,1,utf-8,.style22,SIN RESULTADOS,1
+130,EL NORTE?O,http://www.periodicoelnorteno.com/,TAMAULIPAS,1,utf-8,strong,SIN RESULTADOS,1
+131,EL SOL DE TAMPICO,https://www.elsoldetampico.com.mx/,TAMAULIPAS,1,utf-8,p,NA,1
+132,EL MERCURIO DE TAMAULIPAS,https://elmercurio.com.mx/,TAMAULIPAS,1,utf-8,.post-content,SIN RESULTADOS,1
+133,EL DIARIO DE CIUDAD VICTORIA,https://eldiariodevictoria.com/,TAMAULIPAS,1,utf-8,p,NA,1
+134,EXPRESO.PRESS,http://expreso.press/,TAMAULIPAS,1,utf-8,p,NA,1
+135,LA VERDAD DE TAMAULIPAS,http://www.laverdad.com.mx/,TAMAULIPAS,1,utf-8,.portus-main-article-block,SIN RESULTADOS,1
+136,EL GRAFICO,https://elgraficotam.com.mx/,TAMAULIPAS,1,utf-8,.td-post-content,NA,1
+137,CINCO,https://www.elcinco.mx/,TAMAULIPAS,1,utf-8,p,NA,1
+138,ULTIMAS NOTICIAS,http://www.ultimasnoticiasenred.com.mx/,TAMAULIPAS,1,utf-8,p,NA,1
+139,LA PISTA,http://periodicolapista.com.mx/,TAMAULIPAS,1,utf-8,p,NA,1
+140,MERIDIANO DE HOY,http://www.meridianodehoy.mx/wp/,TAMAULIPAS,0,utf-8,.post-inner,SIN RESULTADOS,1
+141,EL DECIDOR,https://eldecidor.com.mx/,TAMAULIPAS,1,utf-8,p,NA,1
+142,EL MA?ANA,http://www.elmanana.com.mx/,TAMAULIPAS,1,utf-8,p,NA,1
+143,EL DIARIO DE NUEVO LAREDO,http://www.diariolaredo.com/,TAMAULIPAS,1,utf-8,.entry,NA,1
+144,LIDER INFORMATIVO,http://liderweb.mx/,TAMAULIPAS,0,utf-8,.entry-content,NA,1
+145,PRIMERA HORA,http://www.primerahora.com.mx/,TAMAULIPAS,0,utf-8,.cuerpo-nota,SIN RESULTADOS,1
+146,?LTIMA HORA,http://www.primerahora.com.mx/,TAMAULIPAS,0,utf-8,.cuerpo-nota,SIN RESULTADOS,1
+147,EL ECO,http://www.elecodelmante.com/,TAMAULIPAS,1,utf-8,p,SIN RESULTADOS,1
+148,ASTRO NOTICIAS,http://astromante.com/sitio/,TAMAULIPAS,1,utf-8,.td-post-content,NA,1
+149,EL B?HO DE TAMAULIPAS,http://www.elbuhodetamaulipas.com/,TAMAULIPAS,0,utf-8,.itemFullText,NA,1
+150,DEBATE,https://diariodebate.com/,TAMAULIPAS,1,utf-8,.entry,NA,1
+151,LA RED,https://laredmultimedia.com/,TAMAULIPAS,0,utf-8,#main,NA,1
+152,DIARIO XALAPA,https://www.diariodexalapa.com.mx/,VERACRUZ,1,utf-8,p,NA,1
+153,DIARIO AZ,https://azdiario.mx/,VERACRUZ,1,utf-8,p,SIN RESULTADOS,1
+154,LA JORNADA VERACRUZ,http://www.jornadaveracruz.com.mx/,VERACRUZ,1,utf-8,.shortcode-content,NA,1
+155,MARCHA,http://www.marcha.com.mx/,VERACRUZ,1,cp1252,#divcienporciento,NA,1
+156,CRONICA DE XALAPA,http://cronicadexalapa.com/,VERACRUZ,1,utf-8,p,NA,1
+157,OYE VERACRUZ,http://www.oyeveracruz.com.mx/,VERACRUZ,1,cp1252,.oyemin,SIN RESULTADOS,1
+158,EL PORTAL,https://elportal.mx/,VERACRUZ,1,utf-8,.entry-content,SIN RESULTADOS,1
+159,EL DICTAMEN,https://www.eldictamen.mx/,VERACRUZ,1,utf-8,p,SIN RESULTADOS,1
+160,NOTIVER,http://www.notiver.com.mx/,VERACRUZ,1,utf-8,#article_body,SIN RESULTADOS,1
+161,DIARIO DEL ISTMO,http://www.diariodelistmo.com/,VERACRUZ,1,utf-8,#contenido,SIN RESULTADOS,1
+162,EL LIBERAL DEL SUR,http://liberal.com.mx/,VERACRUZ,1,utf-8,.entry-body,NA,1
+163,EL HERALDO DE COATZACOALCOS,http://heraldodecoatzacoalcos.com.mx/,VERACRUZ,1,utf-8,#system,NA,1
+164,LA OPINION,http://www.laopinion.net/,VERACRUZ,0,utf-8,#content,NA,1
+165,EL HERALDO DE POZA RICA,http://elheraldodepozarica.com.mx/,VERACRUZ,1,utf-8,#system,NA,1
+166,NORESTE,http://www.noreste.net/,VERACRUZ,1,utf-8,.entry-content-noreste,NA,1
+167,EL DESPERTAR DE VERACRUZ,http://www.eldespertardeveracruz.com.mx/,VERACRUZ,1,utf-8,.entry-content,SIN RESULTADOS,1
+168,VANGUARDIA,https://www.vanguardiaveracruz.mx/,VERACRUZ,1,utf-8,p,SIN RESULTADOS,1
+169,EL MUNDO,http://www.diarioelmundo.com.mx/,VERACRUZ,1,utf-8,p,NA,1
+170,EL SOL DE CORDOBA,https://www.elsoldecordoba.com.mx/,VERACRUZ,1,utf-8,p,NA,1
+171,EL BUEN TONO,https://www.elbuentono.com.mx/,VERACRUZ,0,utf-8,p,NA,1
+172,EL HERALDO DE MARTINEZ,http://diarioelmartinense.com.mx/,VERACRUZ,1,utf-8,p,NA,1
+173,EL SOL DE ORIZABA,https://www.elsoldeorizaba.com.mx/,VERACRUZ,1,utf-8,p,SIN RESULTADOS,1
+174,DIARIO LOS TUXLAS,https://diariolostuxtlas.com/,VERACRUZ,1,utf-8,.td-post-content,NA,1
+175,EYIPANTLA MILENIO,https://www.diarioeyipantla.com/,VERACRUZ,0,utf-8,p,NA,1
+176,PERFIL,http://www.noticiasperfil.com/index/,VERACRUZ,0,utf-8,p,NA,1
+177,NUESTRO DIARIO,http://www.nuestrodiario.com.mx/,VERACRUZ,0,utf-8,.entry-content,SIN RESULTADOS,1
+178,EL HERALDO DE TUXPAN,http://elheraldodetuxpan.com.mx/,VERACRUZ,1,utf-8,.clearfix,NA,1
+179,CR?NICA,https://www.ctierrablanca.mx/,VERACRUZ,1,utf-8,.wsw-02,SIN RESULTADOS,1
+180,DIARIO DE YUCAT?N,https://www.yucatan.com.mx/,YUCATAN,1,utf-8,.g1-typography-xl,NA,1
+181,POR ESTO!,http://www.poresto.net/,YUCATAN,1,utf-8,.content-inner,NA,1
+182,LA I YUCAT?N,http://laisureste.com/,YUCATAN,0,utf-8,p,NA,1
+183,MILENIO NOVEDADES,https://sipse.com/milenio/,YUCATAN,1,utf-8,p,NA,1
+184,LA VERDAD YUCAT?N,https://laverdadnoticias.com/,YUCATAN,0,utf-8,p,NA,1
+185,LA JORNADA MAYA,https://www.lajornadamaya.mx/,YUCATAN,1,utf-8,article,NA,1
+186,AL CHILE!,http://alchile.com.mx/,YUCATAN,1,utf-8,p,NA,1
