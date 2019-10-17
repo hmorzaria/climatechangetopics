@@ -1,5 +1,5 @@
 ---
-title: "Marcos de cambio climático en medios noticiosos el Golfo de California"
+title: "Climate Change Framing for Adaptation in the Mexican Pacific"
 output:
   html_document:
     df_print: paged
@@ -65,36 +65,47 @@ print(head(article.texts))
   
 ```
 
-We processed articles to separate sentences and applied Microsoft's Cognitive Services using Azure Sentiment Analysis API to do sentiment analysis by sentences. This model uses a combination of techniques during text analysis. Techniques include text processing, part-of-speech analysis, word placement, and word associations
+We processed articles to separate sentences and applied Microsoft's Cognitive Services using Azure Sentiment Analysis API to do sentiment analysis by sentences. This model uses a combination of techniques during text analysis. Techniques include text processing, part-of-speech analysis, word placement, and word associations. 
 
 ```{r}
 
-article.num <- 1:nrow(article.texts)
+# article.num <- 1:nrow(article.texts)
+# 
+# sentence.list <- lapply(article.num, get_sentences, article.texts)
+# 
+# sentence.tbl <- sentence.list %>% 
+#   bind_rows %>% 
+#   mutate(sentence_index = 1:nrow(.))
+# 
+# sentence.length <- 1:nrow(sentence.tbl)
+# 
+#  #language codes are https://docs.microsoft.com/en-us/azure/cognitive-services/translator/language-support
+#  
+# # Create the empty environment to store the key
+# envCogServices <- new.env(parent = emptyenv())
+# 
+# 
+# cogAuth("bb4ac84fcd9e4b909577882b6eb0b545")
 
-sentence.list <- lapply(article.num, get_sentences, article.texts)
+#Scores range from 0 (negative) to 1 (positive)
+#Code from
+#https://detroitdatalab.com/2018/04/08/sentiment-analysis-in-power-bi-with-microsoft-cognitive-services/?utm_campaign=News&utm_medium=Community&utm_source=DataCamp.com
+#https://docs.microsoft.com/en-us/azure/cognitive-services/text-analytics/how-tos/text-analytics-how-to-sentiment-analysis
+#sentiment.scores <- lapply(sentence.length,fnCogServicesBatch,phrase.language = "es", endpoint = "sentiment", region = "southcentralus", sentence.tbl)
 
-sentence.tbl <- sentence.list %>% 
-  bind_rows 
+# sentiment.cog.table.1 <- sentiment.scores %>% 
+#                        bind_rows %>% 
+#   filter(!is.na(sentiment_score)) %>% 
+#                       left_join(sentence.tbl, by ="sentence_index")
+# 
+# write_csv(sentiment.cog.table.1,"sentence_cogsentiment.csv")
 
-sentence.length <- 1:nrow(sentence.tbl)
+sentiment.cog.table.1 <- read_csv("sentence_cogsentiment.csv")
 
- #language codes are https://docs.microsoft.com/en-us/azure/cognitive-services/translator/language-support
- 
-# Create the empty environment to store the key
-envCogServices <- new.env(parent = emptyenv())
-
-
-cogAuth("bb4ac84fcd9e4b909577882b6eb0b545")
-
-sentimen.scores <- lapply(sentence.length,fnCogServicesBatch,phrase.language = "es", endpoint = "sentiment", region = "southcentralus", sentence.tbl)
-
-sentiment.scores <- sentimen.scores
-
-sentiment.scores %>% bind_cols(sentence.tbl)
-
-write_csv(text.inputs,"sentence_sentiment.csv")
+print(head(sentiment.cog.table.1))
   
 ```
+
 
 We first ‘tokenized’ each article, extracting all words per article. We found 38,106 unique words. We then filtered out the stopwords, which are commonly used words (such as “the”), that are not usually considered in natural language processing. We derived the list of stopwords in Spanish from two existing lists that we combined, extracted unique words, and checked for accuracy before filtering the database. The list of words without stopwords had 579,121 tokens. 
 
@@ -111,7 +122,7 @@ stop.words <- fread("stopwords_spanish.txt", header= TRUE, encoding = "Latin-1")
 
 article.num <- 1:nrow(article.texts)
 
-word.list <- lapply(article.num, get_words, article.texts)
+word.list <- lapply(article.num, get_words, article.texts,random="random_words.csv")
 
 word.tbl <- word.list %>% 
   bind_rows %>% 
@@ -183,17 +194,17 @@ sentiment.tokens %>%
 We applied topic modeling, which identifies ‘topics’ or ‘themes’ in the body of the text. We use unsupervised machine learning, where we provide no input on how the articles should be classified or apply set pre-interpretations to identify word clusters that can be interpreted as frames, but rather rely on word co-occurrence. We then validate the models internally by examining different combinations of topics and selecting those that link climate change to a coherent set of other concepts. Finally, we will validate the models externally by reviewing that they represent frames that are consistent and/or have been previously identified in the climate change literature. Once the test models are validated, we will use the model to classify a sample of articles published between 2018-2019, and develop the corresponding models of topic frames. 
 
 
-```{r topic_model, message=FALSE, warning=FALSE, include=FALSE}
+```{r topic_model, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
 
 topic.list.a <- get_topic(word.tbl,no_topics=5,top_topics=15)
 
-topic.list.b <- get_topic(word.tbl,no_topics=6,top_topics=15)
+#topic.list.b <- get_topic(word.tbl,no_topics=6,top_topics=15)
 
-topic.list.c <- get_topic(word.tbl,no_topics=8,top_topics=15)
+#topic.list.c <- get_topic(word.tbl,no_topics=8,top_topics=15)
 
 topic.list.d <- get_topic(word.tbl,no_topics=10,top_topics=15)
 
-topic.list.e <- get_topic(word.tbl,no_topics=12,top_topics=15)
+#topic.list.e <- get_topic(word.tbl,no_topics=12,top_topics=15)
 
 
 ```
@@ -203,7 +214,7 @@ topic.list.e <- get_topic(word.tbl,no_topics=12,top_topics=15)
 
 climate.top.terms <- topic.list.a$lda_terms
 
-climate.top.terms %>% 
+climate.top.terms.plot.a <- climate.top.terms %>% 
   mutate(term=reorder(term, beta)) %>% 
   ggplot(aes(term,beta, fill = factor(topic)))+
   geom_col(show.legend = FALSE)+
@@ -213,5 +224,26 @@ climate.top.terms %>%
   xlab("Words") + 
   ylab("Beta")+ 
   labs(fill = "Theme")
+
+climate.top.terms.plot.a
+```
+
+
+```{r}
+
+climate.top.terms.d <- topic.list.d$lda_terms
+
+climate.top.terms.plot.d <- climate.top.terms.d %>% 
+  mutate(term=reorder(term, beta)) %>% 
+  ggplot(aes(term,beta, fill = factor(topic)))+
+  geom_col(show.legend = FALSE)+
+  facet_wrap(~ topic, scales = "free")+
+  coord_flip()+
+  ggtitle("Common words by theme") +
+  xlab("Words") + 
+  ylab("Beta")+ 
+  labs(fill = "Theme")
+
+climate.top.terms.plot.d
 ```
 

@@ -122,7 +122,7 @@ clean_sentences <- function(sentence.tbl){
   
 
 
-get_words <- function(eacharticle,article.texts){
+get_words <- function(eacharticle,article.texts,random){
   
   print(eacharticle)
   print(article.texts[eacharticle,])

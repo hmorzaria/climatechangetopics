@@ -19,6 +19,8 @@ fnCogServicesBatch <- function(thesesentences, phrase.language, endpoint, region
   
   print(thesesentences)
   
+  Sys.sleep(30)
+  
   # Coerce to character
   text.inputs <- sentence.tbl[thesesentences,] %>% 
   pull(sentence) 
@@ -47,6 +49,7 @@ fnCogServicesBatch <- function(thesesentences, phrase.language, endpoint, region
    # Read in the response as character
   json.response <- readBin(raw.response$content, "character")
   
+  print(json.response)
   # Convert the character, now JSON, response back to a list
   list.response <- fromJSON(json.response)
   
@@ -57,5 +60,11 @@ fnCogServicesBatch <- function(thesesentences, phrase.language, endpoint, region
   vec.words <- unlist(list.phrases)
   
   print(vec.words)
+  
+  if(is.null(vec.words)) stop(return(sentiment.score.tbl))
+  
+  sentiment.score.tbl <- tibble(sentiment_score=vec.words,sentence_index = thesesentences)
 
+  return(sentiment.score.tbl)
+  
 }
