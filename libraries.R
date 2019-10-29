@@ -2,8 +2,8 @@ install.packages("corpus.JSS.papers", repos = "http://datacube.wu.ac.at/", type 
 
 .packages = c(
   "RCurl", "XML","rvest", "httr", "tidyverse","data.table","parallel","doSNOW","here", 
-  "tidytext", "wordcloud","tm", "reshape2","topicmodels","robotstxt","citr","janitor",
-  "tokenizers")
+  "wordcloud","tm", "reshape2","topicmodels","robotstxt","citr","janitor",
+  "tokenizers","rjson","tidytext","textmineR")
 #sudo apt-get install gsl-bin
 #"rjson"
 

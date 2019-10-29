@@ -4,7 +4,46 @@
 #' @author Hem Nalini Morzaria-Luna hmorzarialuna@gmail.com
 #' @date October 2019
 
+We processed articles to separate sentences and applied Microsoft's Cognitive Services using Azure Sentiment Analysis API to do sentiment analysis by sentences. This model uses a combination of techniques during text analysis. Techniques include text processing, part-of-speech analysis, word placement, and word associations. 
 
+```{r}
+
+# article.num <- 1:nrow(article.texts)
+# 
+# sentence.list <- lapply(article.num, get_sentences, article.texts)
+# 
+# sentence.tbl <- sentence.list %>% 
+#   bind_rows %>% 
+#   mutate(sentence_index = 1:nrow(.))
+# 
+# sentence.length <- 1:nrow(sentence.tbl)
+# 
+#  #language codes are https://docs.microsoft.com/en-us/azure/cognitive-services/translator/language-support
+#  
+# # Create the empty environment to store the key
+# envCogServices <- new.env(parent = emptyenv())
+# 
+# 
+# cogAuth("bb4ac84fcd9e4b909577882b6eb0b545")
+
+#Scores range from 0 (negative) to 1 (positive)
+#Code from
+#https://detroitdatalab.com/2018/04/08/sentiment-analysis-in-power-bi-with-microsoft-cognitive-services/?utm_campaign=News&utm_medium=Community&utm_source=DataCamp.com
+#https://docs.microsoft.com/en-us/azure/cognitive-services/text-analytics/how-tos/text-analytics-how-to-sentiment-analysis
+#sentiment.scores <- lapply(sentence.length,fnCogServicesBatch,phrase.language = "es", endpoint = "sentiment", region = "southcentralus", sentence.tbl)
+
+# sentiment.cog.table.1 <- sentiment.scores %>% 
+#                        bind_rows %>% 
+#   filter(!is.na(sentiment_score)) %>% 
+#                       left_join(sentence.tbl, by ="sentence_index")
+# 
+# write_csv(sentiment.cog.table.1,"sentence_cogsentiment.csv")
+
+sentiment.cog.table.1 <- read_csv("sentence_cogsentiment.csv")
+
+print(head(sentiment.cog.table.1))
+  
+```
 
 cogAuth <- function(key) {
   

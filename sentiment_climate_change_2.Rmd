@@ -65,60 +65,14 @@ print(head(article.texts))
   
 ```
 
-We processed articles to separate sentences and applied Microsoft's Cognitive Services using Azure Sentiment Analysis API to do sentiment analysis by sentences. This model uses a combination of techniques during text analysis. Techniques include text processing, part-of-speech analysis, word placement, and word associations. 
-
-```{r}
-
-# article.num <- 1:nrow(article.texts)
-# 
-# sentence.list <- lapply(article.num, get_sentences, article.texts)
-# 
-# sentence.tbl <- sentence.list %>% 
-#   bind_rows %>% 
-#   mutate(sentence_index = 1:nrow(.))
-# 
-# sentence.length <- 1:nrow(sentence.tbl)
-# 
-#  #language codes are https://docs.microsoft.com/en-us/azure/cognitive-services/translator/language-support
-#  
-# # Create the empty environment to store the key
-# envCogServices <- new.env(parent = emptyenv())
-# 
-# 
-# cogAuth("bb4ac84fcd9e4b909577882b6eb0b545")
-
-#Scores range from 0 (negative) to 1 (positive)
-#Code from
-#https://detroitdatalab.com/2018/04/08/sentiment-analysis-in-power-bi-with-microsoft-cognitive-services/?utm_campaign=News&utm_medium=Community&utm_source=DataCamp.com
-#https://docs.microsoft.com/en-us/azure/cognitive-services/text-analytics/how-tos/text-analytics-how-to-sentiment-analysis
-#sentiment.scores <- lapply(sentence.length,fnCogServicesBatch,phrase.language = "es", endpoint = "sentiment", region = "southcentralus", sentence.tbl)
-
-# sentiment.cog.table.1 <- sentiment.scores %>% 
-#                        bind_rows %>% 
-#   filter(!is.na(sentiment_score)) %>% 
-#                       left_join(sentence.tbl, by ="sentence_index")
-# 
-# write_csv(sentiment.cog.table.1,"sentence_cogsentiment.csv")
-
-sentiment.cog.table.1 <- read_csv("sentence_cogsentiment.csv")
-
-print(head(sentiment.cog.table.1))
-  
-```
-
-
 We first ‘tokenized’ each article, extracting all words per article. We found 38,106 unique words. We then filtered out the stopwords, which are commonly used words (such as “the”), that are not usually considered in natural language processing. We derived the list of stopwords in Spanish from two existing lists that we combined, extracted unique words, and checked for accuracy before filtering the database. The list of words without stopwords had 579,121 tokens. 
-
 
 ```{r get_words, message=FALSE, warning=FALSE, include=FALSE}
 
-spanish.stop.words <- stopwords("spanish") %>% 
-  tbl_df %>% 
-  setNames("word")
+#stopword final list, reviewed manually
+stop.words <- fread("stopwords_spanish.csv", header= TRUE, encoding = "UTF-8") %>% 
+ pull(word)
 
-stop.words <- fread("stopwords_spanish.txt", header= TRUE, encoding = "Latin-1") %>% 
-  bind_rows(spanish.stop.words) %>% 
-  distinct(word)
 
 article.num <- 1:nrow(article.texts)
 
@@ -135,12 +89,7 @@ This word cloud shows the word frequency.
 
 ```{r word_floud_freq, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
 
-word.cloud <- word.tbl %>% 
-  group_by(word) %>% 
-  dplyr::summarise(n_cat = n()) %>% 
-  with(wordcloud(word,n_cat,max.words=75)) 
-
-word.cloud
+word.cloud <- get_wordcloud(word.tbl)
 
 ```
 
@@ -165,27 +114,17 @@ sentiment.tokens <- get_sentiment(word.tbl,sent.lexicon)
 ```{r sentiment_analysis, echo=FALSE, message=FALSE, warning=FALSE}
 #graphs
 
-sentiment.tokens %>% 
-  group_by(article_index, category) %>% 
-  dplyr::summarise(n_cat = n()) %>% 
-  # count(word, category, sort = TRUE) %>% 
-  ggplot(aes(category,n_cat, fill = category))+
-  geom_boxplot(show.legend = FALSE)+
-  ggtitle("Sentiment analysis") +
-  xlab("Category") + 
-  ylab("No. words")
-
+sentiment.barplot <- get_sentiment_barplot(sentiment.tokens)
+sentiment.barplot
 ```
 
 This is the result of the sentiment analysis, showing the number of positive vs negative words per article.
 
 ```{r word_cloud_comparison, echo=FALSE, message=FALSE, warning=FALSE}
-sentiment.tokens %>% 
-  group_by(word, category) %>% 
-  dplyr::summarise(n_cat = n()) %>% 
-  acast(word ~ category, value.var = "n_cat", fill = 0) %>% 
-  comparison.cloud(colors = c("blue","red"),
-                   max.words = 100)
+
+sentiment.cloud <- get_sentiment_wordcloud(sentiment.tokens)
+
+sentiment.cloud
 ```
 
 
@@ -196,54 +135,23 @@ We applied topic modeling, which identifies ‘topics’ or ‘themes’ in the 
 
 ```{r topic_model, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
 
-topic.list.a <- get_topic(word.tbl,no_topics=5,top_topics=15)
+model.lda.results <- get_topic(article.texts,no_topics=15,stop.words)
 
-#topic.list.b <- get_topic(word.tbl,no_topics=6,top_topics=15)
+  summary(model.lda.results$model$coherence)
+   
+  model.lda.results$model$summary[ order(model$summary$prevalence, decreasing = TRUE) , ][ 1:10 , ]
+  
 
-#topic.list.c <- get_topic(word.tbl,no_topics=8,top_topics=15)
-
-topic.list.d <- get_topic(word.tbl,no_topics=10,top_topics=15)
-
-#topic.list.e <- get_topic(word.tbl,no_topics=12,top_topics=15)
+saveRDS(model.lda.results$model, "./lda_model.rds")
 
 
 ```
 
-
 ```{r}
 
-climate.top.terms <- topic.list.a$lda_terms
+topic.list.d
 
-climate.top.terms.plot.a <- climate.top.terms %>% 
-  mutate(term=reorder(term, beta)) %>% 
-  ggplot(aes(term,beta, fill = factor(topic)))+
-  geom_col(show.legend = FALSE)+
-  facet_wrap(~ topic, scales = "free")+
-  coord_flip()+
-  ggtitle("Common words by theme") +
-  xlab("Words") + 
-  ylab("Beta")+ 
-  labs(fill = "Theme")
+topic.predict <- predict(topic.list.d,term.matrix)
 
-climate.top.terms.plot.a
-```
-
-
-```{r}
-
-climate.top.terms.d <- topic.list.d$lda_terms
-
-climate.top.terms.plot.d <- climate.top.terms.d %>% 
-  mutate(term=reorder(term, beta)) %>% 
-  ggplot(aes(term,beta, fill = factor(topic)))+
-  geom_col(show.legend = FALSE)+
-  facet_wrap(~ topic, scales = "free")+
-  coord_flip()+
-  ggtitle("Common words by theme") +
-  xlab("Words") + 
-  ylab("Beta")+ 
-  labs(fill = "Theme")
-
-climate.top.terms.plot.d
 ```
 
